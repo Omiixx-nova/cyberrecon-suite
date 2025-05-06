@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CyberRecon Web Suite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #161b22;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #30363d;
+        }
+
+        h1, h2 {
+            margin: 10px 0;
+        }
+
+        section {
+            padding: 20px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        input, textarea, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            background: #21262d;
+            color: #c9d1d9;
+        }
+
+        button {
+            background: #238636;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2ea043;
+        }
+
+        #scanResults, #fuzzResults, #headerResults {
+            background: #161b22;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            background: #161b22;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #30363d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CyberRecon Web Suite</h1>
+        <p>Bug Bounty & Cybersecurity Toolkit</p>
+    </header>
+
+    <section id="scanner">
+        <h2>🔍 Subdomain Scanner (Demo)</h2>
+        <input type="text" id="domainInput" placeholder="Enter domain (e.g. example.com)">
+        <button onclick="scanDomain()">Scan</button>
+        <div id="scanResults"></div>
+    </section>
+
+    <section id="dirFuzzer">
+        <h2>🗂️ Directory Fuzzer (Demo)</h2>
+        <input type="text" id="urlInput" placeholder="Enter base URL (e.g. https://example.com)">
+        <textarea id="wordlist" rows="4" placeholder="Enter paths (e.g. /admin, /login)... one per line"></textarea>
+        <button onclick="fuzzDirs()">Start Fuzzing</button>
+        <div id="fuzzResults"></div>
+    </section>
+
+    <section id="headers">
+        <h2>🛡️ Security Headers Analyzer (Demo)</h2>
+        <input type="text" id="headerUrl" placeholder="Enter URL">
+        <button onclick="analyzeHeaders()">Analyze Headers</button>
+        <div id="headerResults"></div>
+    </section>
+
+    <footer>
+        <p>© 2025 CyberRecon | Built by Wayne & Alfred</p>
+    </footer>
+
+    <script>
+        function scanDomain() {
+            const domain = document.getElementById('domainInput').value.trim();
+            const fakeSubdomains = [
+                `admin.${domain}`,
+                `test.${domain}`,
+                `dev.${domain}`,
+                `staging.${domain}`
+            ];
+            const result = `Subdomains found:\n` + fakeSubdomains.join('\n');
+            document.getElementById('scanResults').innerText = result;
+        }
+
+        function fuzzDirs() {
+            const url = document.getElementById('urlInput').value.trim();
+            const wordlist = document.getElementById('wordlist').value.trim().split('\n');
+            let result = `Paths checked on ${url}:\n`;
+            wordlist.forEach(path => {
+                const cleanPath = path.trim();
+                if (cleanPath) {
+                    const status = Math.random() > 0.7 ? "200 OK" : "403 Forbidden";
+                    result += `${url}${cleanPath} ➤ ${status}\n`;
+                }
+            });
+            document.getElementById('fuzzResults').innerText = result;
+        }
+
+        function analyzeHeaders() {
+            const url = document.getElementById('headerUrl').value.trim();
+            const headers = [
+                "Content-Security-Policy: MISSING",
+                "Strict-Transport-Security: PRESENT",
+                "X-Content-Type-Options: PRESENT",
+                "X-Frame-Options: MISSING",
+                "Referrer-Policy: PRESENT"
+            ];
+            const result = `Headers for ${url}:\n` + headers.join('\n');
+            document.getElementById('headerResults').innerText = result;
+        }
+    </script>
+</body>
+</html>
