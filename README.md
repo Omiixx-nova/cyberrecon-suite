@@ -15,13 +15,9 @@ CyberRecon Web Suite is a lightweight, browser-based tool designed to help ethic
 - 🛡️ **Security Headers Analyzer (Demo):**
     - Check key security headers on a target site and highlight what’s missing or present.
 
-## 📸 Screenshots
-
-*(Add a screenshot here once the site is live!)*
-
 ## 🌐 Live Demo
 
-👉 [View Live Website](https://yourusername.github.io/cyberrecon-suite)
+👉 https://omiixx-nova.github.io/cyberrecon-suite/
 
 ## 🛠️ How to Use
 
